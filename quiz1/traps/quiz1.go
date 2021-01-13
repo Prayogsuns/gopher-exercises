@@ -23,7 +23,7 @@ func ReadQuiz(f *os.File) [][]string {
 	return records
 }
 
-func WriteQuiz(records [][]string, rf int, stop chan time.Duration, limit int) {
+func WriteQuiz(records [][]string, rf int, stop chan time.Duration) {
 	total_quiz_count = len(records)
 
 	for i, _ := range records {
@@ -51,9 +51,8 @@ func updateResult(index, sum, real_sum int) {
 	result := 0
 	if sum == real_sum {
 		result = 1
+	  results = append(results, result)
 	}
-
-	results = append(results, result)
 }
 
 func PrintResult() {

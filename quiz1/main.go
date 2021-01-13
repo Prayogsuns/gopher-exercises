@@ -43,7 +43,7 @@ func main() {
 
 	startTime := time.Now()
 	go watchTime(stop, startTime, limit)
-	go quiz.WriteQuiz(r, 0, stop, limit)
+	go quiz.WriteQuiz(r, 0, stop)
 
 	if time_left := <-stop; time_left == time.Duration(0) {
 		quiz.PrintResult()
