@@ -18,23 +18,18 @@ func usage() (string, int) {
 	fcsv := fs.String("csv", "quiz.csv", "a csv file in the format of 'question.answer'")
 	flimit := fs.Int("limit", 30, "the time limit of quiz in seconds")
 
-	//ferror := fs.Parse(os.Args[1:])
 	fs.Parse(os.Args[1:])
-	//fmt.Println("XYZ")
-	//fmt.Println(fmt.Print(ferror))
-	//fmt.Println("AAA")
+
 	return *fcsv, *flimit
 }
 
 func main() {
-	//if len(os.Args) == 2 && os.Args[1] == "-h" {
 	csv, limit := usage()
 	//fmt.Println(csv, limit)
 	if (csv == "-limit") || (csv == "--limit") {
 		fmt.Println("flag csv can't be set to -limit|--limit")
 		os.Exit(1)
 	}
-	//fmt.Println("BBB")
 
 	filename := csv
 	f, err := os.OpenFile(filename, os.O_RDWR, 0755)
@@ -48,8 +43,7 @@ func main() {
 
 	startTime := time.Now()
 	go watchTime(stop, startTime, limit)
-	//quiz.WriteQuiz(r, 0, stop, limit)
-	go quiz.WriteQuiz(r, 0, limit)
+	go quiz.WriteQuiz(r, 0, stop, limit)
 
 	if time_left := <-stop; time_left == time.Duration(0) {
 		quiz.PrintResult()
@@ -91,11 +85,9 @@ func watchTime(stop chan time.Duration, start time.Time, limit int) {
 	for {
 		t := time.Now()
 		elapsed := t.Sub(start)
-		//fmt.Println(elapsed, (time.Duration(limit) * time.Second))
+
 		if elapsed >= (time.Duration(limit) * time.Second) {
 			stop <- time.Duration(0)
-		} // else {
-		//  stop <- elapsed
-		//}
+		}
 	}
 }

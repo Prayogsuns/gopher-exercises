@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var results = make([]int, 0, 1000)
@@ -22,7 +23,7 @@ func ReadQuiz(f *os.File) [][]string {
 	return records
 }
 
-func WriteQuiz(records [][]string, rf int, limit int) {
+func WriteQuiz(records [][]string, rf int, stop chan time.Duration, limit int) {
 	total_quiz_count = len(records)
 
 	for i, _ := range records {
@@ -43,7 +44,7 @@ func WriteQuiz(records [][]string, rf int, limit int) {
 
 		updateResult(i, sum, real_sum)
 	}
-
+  stop <- time.Duration(0)
 }
 
 func updateResult(index, sum, real_sum int) {
