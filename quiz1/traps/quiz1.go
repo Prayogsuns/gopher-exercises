@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-var results = make([]int, 0, 1000)
+var results = make([]int, 0)
 var total_quiz_count int
 
 func ReadQuiz(f *os.File) [][]string {
