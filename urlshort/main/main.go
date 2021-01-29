@@ -41,9 +41,10 @@ func main() {
 	if *yamlf != "" {
 		yamlF, errry := ioutil.ReadFile(*yamlf)
 		check(errry)
-		yaml := string(yamlF)
+		//yaml := string(yamlF)
 
-		serverHandler, erry := urlshort.YAMLHandler([]byte(yaml), mapHandler)
+		//serverHandler, erry := urlshort.YAMLHandler([]byte(yaml), mapHandler)
+		serverHandler, erry := urlshort.YAMLHandler(yamlF, mapHandler)
 		check(erry)
 
 		fmt.Println("Starting the server on :8080")
@@ -51,9 +52,10 @@ func main() {
 	} else {
 		jsonF, errrj := ioutil.ReadFile(*jsonf)
 		check(errrj)
-		json := string(jsonF)
+		//json := string(jsonF)
 
-		serverHandler, errj := urlshort.JSONHandler([]byte(json), mapHandler)
+		//serverHandler, errj := urlshort.JSONHandler([]byte(json), mapHandler)
+		serverHandler, errj := urlshort.JSONHandler(jsonF, mapHandler)
 		check(errj)
 
 		fmt.Println("Starting the server on :8081")
