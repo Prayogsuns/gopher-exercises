@@ -10,7 +10,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"strconv"
+	// "strconv"
 )
 
 var yamlf *string
@@ -87,7 +87,7 @@ func main() {
 			yaml_data[data.Path] = data.Url
 		}
 
-		fmt.Println("Db Actions")
+		// fmt.Println("Db Actions")
 		var DB_NAME = "sqllite3db"
 		var filename = DB_NAME + ".db"
 		var table = map[string]string{"name": "urlmap", "col1": "id", "col2": "path", "col3": "url"}
@@ -98,7 +98,7 @@ func main() {
 
 		dbMapHandler := urlshort.MapHandler(queryDb(db, table), mapHandler)
 		closeDb(filename, db)
-		fmt.Println("Db Closed")
+		// fmt.Println("Db Closed")
 
 		fmt.Println("Starting the server on :8082")
 		http.ListenAndServe(":8082", dbMapHandler)
@@ -156,7 +156,7 @@ func queryDb(db *sql.DB, table map[string]string) map[string]string {
 	var url string
 	for rows.Next() {
 		rows.Scan(&id, &path, &url)
-		fmt.Println(strconv.Itoa(id) + ": " + path + " " + url)
+		// fmt.Println(strconv.Itoa(id) + ": " + path + " " + url)
 		path_map[path] = url
 	}
 	return path_map
